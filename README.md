@@ -253,3 +253,5 @@ const Ticket = mongoose.model("Ticket", {
   - modifier un événement
   - supprimer un événement (les tickets correpondants devront également être supprimés)
   - annuler une réservation (les places disponibles pour l'événement devront être mises à jour)
+- Ne pas pouvoir réserver une date dans le passé. Pour cela, vous devrez utiliser le package date-fns.
+- Créer un autre projet **'Olympia-Client'** ([olympia-client](./olympia-client/))indépendant, qui permettra d'appeler ce serveur pour effectuer des réservations depuis le terminal.

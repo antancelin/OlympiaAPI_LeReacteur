@@ -1,5 +1,5 @@
 const express = require("express");
-
+const { isPast, parseISO } = require("date-fns");
 const Ticket = require("../models/Ticket");
 const Event = require("../models/Event");
 
@@ -9,12 +9,19 @@ const router = express.Router();
 router.post("/tickets", async (req, res) => {
   try {
     const eventId = req.body.eventId;
-    const eventDate = req.body.date;
+    const eventDate = parseISO(req.body.date);
     const reservationMail = req.body.email;
     const reservationUsername = req.body.username;
     const reservationCategory = req.body.category;
     const reservationSeats = req.body.seats;
     const reservationDate = new Date();
+
+    // vérification de la date si dans le passée
+    if (isPast(eventDate)) {
+      return res.status(400).json({
+        message: "Can't booked a passed date",
+      });
+    }
 
     const newReservation = new Ticket({
       mail: reservationMail,
